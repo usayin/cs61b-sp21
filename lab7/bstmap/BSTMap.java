@@ -1,7 +1,11 @@
 package bstmap;
 
-import java.util.*;
-
+import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Stack;
+import java.util.Deque;
+import java.util.TreeSet;
 
 public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
     private int size;
@@ -144,8 +148,8 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
     }
 
     @Override
-    public Set<K> keySet() {
-        Set<K> keys = new TreeSet<>();
+    public TreeSet<K> keySet() {
+        TreeSet<K> keys = new TreeSet<>();
         Deque<Node<K, V>> nodes = new LinkedList<>();
 
         nodes.push(root);
@@ -162,9 +166,9 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
         return keys;
     }
 
-    private Set<K> keySetIterativeDFS() {
+    private ArrayList<K> keySetIterativeDFS() {
         Stack<Node<K, V>> nodes = new Stack<>();
-        TreeSet<K> keySets = new TreeSet<>();
+        ArrayList<K> keySets = new ArrayList<>();
         Node<K, V> popNode = root;
 
         nodes.push(root);
@@ -223,7 +227,7 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
         V removedValue = node.value;
         if (isTwoChildNode(node)) {
             // find biggest of left subtree
-            TreeMap<String, Node<K, V>> leftAndPrev = largestLeft(node);
+            BSTMap<String, Node<K, V>> leftAndPrev = largestLeft(node);
             Node<K, V> leftLargest = leftAndPrev.get("leftLargest");
             Node<K, V> leftLargestPrev = leftAndPrev.get("prev");
 
@@ -267,7 +271,7 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
      * @param node root node of the search subtree
      * @return largest node and its prev node
      */
-    private TreeMap<String, Node<K, V>> largestLeft(Node<K, V> node) {
+    private BSTMap<String, Node<K, V>> largestLeft(Node<K, V> node) {
         if (node == null || node.left == null) {
             return null;
         }
@@ -280,7 +284,7 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
             ptr = ptr.right;
         }
 
-        TreeMap<String, Node<K, V>> ret = new TreeMap<>();
+        BSTMap<String, Node<K, V>> ret = new BSTMap<>();
         ret.put("prev", prev);
         ret.put("leftLargest", ptr);
 
@@ -359,7 +363,7 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
 
     @Override
     public Iterator<K> iterator() {
-        Set<K> keys = keySet();
+        TreeSet<K> keys = keySet();
 
         return keys.iterator();
     }
