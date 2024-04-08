@@ -196,7 +196,7 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
         }
 
         // search the node and its prev
-        TreeMap<String, Node<K, V>> searchResult = searchPrev(key, root, root);
+        BSTMap<String, Node<K, V>> searchResult = searchPrev(key, root, root);
         if (searchResult == null) {
             return null;
         }
@@ -323,19 +323,19 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
      *
      * Invariant: if root != null, root's prev is root itself
      */
-    private TreeMap<String, Node<K, V>> searchPrev(K key, Node<K, V> node, Node<K, V> prev) {
+    private BSTMap<String, Node<K, V>> searchPrev(K key, Node<K, V> node, Node<K, V> prev) {
         if (key == null || node == null) {
             return null;
         }
 
         int cmp = key.compareTo(node.key);
-        TreeMap<String, Node<K, V>> searchResult;
+        BSTMap<String, Node<K, V>> searchResult;
         if (cmp < 0) {
             searchResult = searchPrev(key, node.left, node);
         } else if (cmp > 0) {
             searchResult = searchPrev(key, node.right, node);
         } else {
-            searchResult = new TreeMap<>();
+            searchResult = new BSTMap<>();
             searchResult.put("node", node);
             searchResult.put("prev", prev);
         }
