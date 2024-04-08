@@ -1,13 +1,8 @@
 package bstmap;
 
-import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Stack;
-import java.util.Deque;
-import java.util.TreeSet;
+import java.util.*;
 
-public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
+public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     private int size;
     private Node<K, V> root;
 
@@ -148,7 +143,7 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
     }
 
     @Override
-    public TreeSet<K> keySet() {
+    public Set<K> keySet() {
         TreeSet<K> keys = new TreeSet<>();
         Deque<Node<K, V>> nodes = new LinkedList<>();
 
@@ -363,7 +358,7 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
 
     @Override
     public Iterator<K> iterator() {
-        TreeSet<K> keys = keySet();
+        TreeSet<K> keys = (TreeSet<K>) keySet();
 
         return keys.iterator();
     }
