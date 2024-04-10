@@ -28,18 +28,20 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Instance Variables */
     private Collection<Node>[] buckets;
     private double maxLoad;
+    private double defaultMaxLoad = 0.75;
+    private int defaultTableSize = 16;
     private int size;
 
     /** Constructors */
     public MyHashMap() {
-        this.buckets = createTable(16);
-        this.maxLoad = 0.75;
+        this.buckets = createTable(defaultTableSize);
+        this.maxLoad = defaultMaxLoad;
         this.size = 0;
     }
 
-    public MyHashMap(int initialSize) {
+   public MyHashMap(int initialSize) {
         this.buckets = createTable(initialSize);
-        this.maxLoad = 0.75;
+        this.maxLoad = defaultMaxLoad;
         this.size = 0;
     }
 
@@ -168,9 +170,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         bucket.add(createNode(key, value));
         size++;
 
-        // TODO: resize if N/M >= LOAD_FACTOR
-        double LOAD_FACTOR = 1.0 * size / buckets.length;
-        if (LOAD_FACTOR >= maxLoad) {
+        double loadFactor= 1.0 * size / buckets.length;
+        if (loadFactor >= maxLoad) {
             doResize();
         }
     }
